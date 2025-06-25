@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I'm Sorry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Press Start 2P', cursive;
+      background: black;
+    }
+    .slide {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      background-size: cover;
+      background-position: center;
+    }
+    .active {
+      display: block;
+    }
+    .nav-buttons {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
+    button {
+      background: white;
+      border: none;
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide active" style="background-image: url('slides/slide_1.png');"></div>
+  <div class="slide" style="background-image: url('slides/slide_2.png');"></div>
+  <div class="slide" style="background-image: url('slides/slide_3.png');"></div>
+  <div class="slide" style="background-image: url('slides/slide_4.png');"></div>
+  <div class="slide" style="background-image: url('slides/slide_5.png');"></div>
+
+  <div class="nav-buttons">
+    <button id="prevBtn">Back</button>
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    let current = 0;
+
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === current);
+      });
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (current < slides.length - 1) {
+        current++;
+        updateSlides();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (current > 0) {
+        current--;
+        updateSlides();
+      }
+    });
+
+    updateSlides();
+  </script>
+
+</body>
+</html>
